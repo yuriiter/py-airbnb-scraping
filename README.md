@@ -91,7 +91,8 @@ room_id=18039593#obviously the room id
 currency="MXN"
 check_in = ""
 check_out = ""
-data = gobnb.Get_from_room_id(room_id,currency,check_in,check_out,"")
+proxy_url = gobnb.parse_proxy("[IP or domain]","[port]","[user name]","[password]")
+data = gobnb.Get_from_room_id(room_id,currency,check_in,check_out,proxy_url)
 jsondata = json.dumps(data)
 f = open("details.json", "w")
 f.write(jsondata)
