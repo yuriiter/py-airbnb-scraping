@@ -21,12 +21,11 @@ def get(proxy_url: str) -> str:
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
-    session = requests.Session()
-    session.headers.update(headers)
+    proxies = {}
     if proxy_url:
-        session.proxies.update({'http': proxy_url, 'https': proxy_url})
+        proxies = {"http": proxy_url, "https": proxy_url}
 
-    response = session.get(ep, timeout=60)  
+    response = requests.get(ep, headers=headers, proxies=proxies, timeout=60)  
     response.raise_for_status() 
 
     body = response.text

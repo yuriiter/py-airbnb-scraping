@@ -2,7 +2,6 @@ import json
 from curl_cffi import requests
 from gobnb.utils import get_nested_value,remove_space,parse_price_symbol
 from urllib.parse import urlencode
-
 ep = "https://www.airbnb.com/api/v3/StaysPdpSections/80c7889b4b0027d99ffea830f6c0d4911a6e863a957cbe1044823f0fc746bf1f"
 
 def get_price(product_id: str, impresion_id: str,api_key: str, currency: str, cookies: list, checkIn: str, checkOut: str, proxy_url: str) -> (str):
@@ -71,13 +70,14 @@ def get_price(product_id: str, impresion_id: str,api_key: str, currency: str, co
         url = f"{ep}?{urlencode(query)}"
         
         session = requests.Session()
+        proxies = {}
         if proxy_url:
-            session.proxies.update({'http': proxy_url, 'https': proxy_url})
+            proxies = {"http": proxy_url, "https": proxy_url}
 
         for name in cookies:
             session.cookies.set(name, cookies[name])
 
-        response = session.get(url, headers=headers)
+        response = session.get(url, headers=headers, proxies=proxies)
         response.raise_for_status()
 
         data = response.json()

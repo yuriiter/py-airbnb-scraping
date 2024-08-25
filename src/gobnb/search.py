@@ -122,8 +122,7 @@ def search(check_in:str, check_out:str, ne_lat:float, ne_long:float, sw_lat:floa
     }
     proxies = {}
     if proxy_url:
-        parsed_proxy_url = requests.utils.requote_uri(proxy_url)
-        proxies = {"http": parsed_proxy_url, "https": parsed_proxy_url}
+        proxies = {"http": proxy_url, "https": proxy_url}
     response = requests.post(url_parsed, json = inputData, headers=headers, proxies=proxies,  impersonate="chrome110")
     data = response.json()
     to_return=get_nested_value(data,"data.presentation.staysSearch.results",{})

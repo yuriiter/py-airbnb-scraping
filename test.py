@@ -17,7 +17,8 @@ def test1():
     currency="MXN"
     check_in = "2024-11-02"
     check_out = "2024-11-10"
-    data = gobnb.Get_from_room_id(room_id,currency,check_in,check_out,"")
+    proxy_url = gobnb.parse_proxy("[IP or domain]","[port]","[user name]","[password]")
+    data = gobnb.Get_from_room_id(room_id,currency,check_in,check_out,proxy_url)
     jsondata = json.dumps(data)
     f = open("details.json", "w")
     f.write(jsondata)

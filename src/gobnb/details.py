@@ -51,8 +51,7 @@ def get_from_room_url(room_url: str, proxy_url: str):
     }
     proxies = {}
     if proxy_url:
-        parsed_proxy_url = requests.utils.requote_uri(proxy_url)
-        proxies = {"http": parsed_proxy_url, "https": parsed_proxy_url}
+        proxies = {"http": proxy_url, "https": proxy_url}
     response = requests.get(room_url, headers=headers, proxies=proxies)
     response.raise_for_status()
     data_formatted, price_dependency_input=parse_body_details_wrapper(response.text)

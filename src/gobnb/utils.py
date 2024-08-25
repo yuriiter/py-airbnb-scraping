@@ -1,4 +1,6 @@
 import re
+from urllib.parse import quote
+
 
 regex_space = re.compile(r'[\s ]+')
 regx_price = re.compile(r'\d+')
@@ -34,3 +36,8 @@ def parse_price_symbol(price_raw: str):
     
     return price_converted, price_currency
 
+def parse_proxy(ip_or_domain: str,port: str, username: str, password: str) -> (str):
+    encoded_username = quote(username)
+    encoded_password = quote(password)
+    proxy_url = f"http://{encoded_username}:{encoded_password}@{ip_or_domain}:{port}"
+    return proxy_url
