@@ -33,8 +33,8 @@ def search_current(page):
 def scrape():
     """Main scraping function."""
     create_if_not_exists('generated/')
-    print('Starting scraping AirBnb...')
     args = parse_args()
+    print('Starting scraping AirBnb...')
     output_file = args.output
     url = construct_url(args)
     listings = []
