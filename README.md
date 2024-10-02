@@ -44,21 +44,23 @@ pip install -r requirements.txt
 
 ```bash
 (venv) ➜  scrape_airbnb git:(main) ✗ python main.py --help
-usage: main.py [-h] --query QUERY [--adults ADULTS] --checkin CHECKIN --checkout CHECKOUT [--price-min PRICE_MIN] [--price-max PRICE_MAX] [--output OUTPUT]
+usage: main.py [-h] --query QUERY [--adults ADULTS] --checkin CHECKIN --checkout CHECKOUT
+               [--price-min PRICE_MIN] [--price-max PRICE_MAX] [--output OUTPUT] [--currency CURRENCY]
 
 Airbnb scraping parameters.
 
 options:
   -h, --help            show this help message and exit
   --query QUERY         Query location
-  --adults ADULTS       Number of adults
+  --adults ADULTS       Number of adults (1 by default)
   --checkin CHECKIN     Check-in date
   --checkout CHECKOUT   Check-out date
   --price-min PRICE_MIN
                         Minimum price
   --price-max PRICE_MAX
                         Maximum price
-  --output OUTPUT       Output file (CSV or JSON)
+  --output OUTPUT       Output file (CSV or JSON), auto-generated CSV by default
+  --currency CURRENCY   Currency (EUR by default)
 ```
 
 The required parameters are query (location), check-in and check-out dates (in format YYYY-MM-DD).
