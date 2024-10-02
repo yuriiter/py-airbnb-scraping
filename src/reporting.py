@@ -17,12 +17,13 @@ def append_to_reports_csv(args):
     
     if os.path.isfile(report_file):
         df = pd.read_csv(report_file)
-        df = df.append(new_data, ignore_index=True)
+        new_data_df = pd.DataFrame([new_data])
+        df = pd.concat([df, new_data_df], ignore_index=True)
     else:
         df = pd.DataFrame([new_data])
     
     df.to_csv(report_file, index=False)
-    print('Saved query report to reports.csv')
+    print('Saved query report to generated/reports.csv')
 
 def save_search_results(listings, output_file):
     if output_file.endswith('.csv'):

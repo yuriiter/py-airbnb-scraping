@@ -2,7 +2,7 @@ import re
 
 def extract_listing_info(item, encoded_params):
     listing = item.get('listing', {})
-    price_info = listing.get('pricingQuote', {}).get('structuredStayDisplayPrice', {}).get('primaryLine', {})
+    price_info = item.get('pricingQuote', {}).get('structuredStayDisplayPrice', {}).get('primaryLine', {})
 
     avgRatingLocalized = listing.get('avgRatingLocalized')
 
@@ -23,6 +23,10 @@ def extract_listing_info(item, encoded_params):
     if '__typename' in coordinate:
         coordinate.pop('__typename')
 
+    discounted_price = price_info.get('discountedPrice')
+    original_price = price_info.get('originalPrice')
+    price = discounted_price if discounted_price else price_info.get('price')
+
     return {
         'id': listing.get('id'),
         'url': f"https://airbnb.com/rooms/{listing.get('id')}?{encoded_params}",
@@ -31,17 +35,16 @@ def extract_listing_info(item, encoded_params):
         'avg_rating': avg_rating,
         'num_of_rates': num_of_rates,
         'room_type': listing.get('roomTypeCategory'),
-        'price': price_info.get('discountedPrice'),
-        'original_price': price_info.get('originalPrice'),
-        'discounted_price': price_info.get('discountedPrice'),
+        'price': price,
+        'original_price': original_price,
+        'discounted_price': discounted_price,
         'price_qualifier': price_info.get('qualifier'),
-        'pictures': "; ".join([pic.get('picture') for pic in listing.get('contextualPictures', [])]),
-        'badges': "; ".join([badge.get('text') for badge in item.get('badges', [])]),
+        # 'pictures': " - ".join([pic.get('picture') for pic in item.get('contextualPictures', [])]),
+        'badges': " - ".join([badge.get('text') for badge in item.get('badges', [])]),
         **coordinate
     }
 
 def extract_airbnb_listings(data, encoded_params):
-    print(data)
     map_search_results = data.get('presentation', {}).get('staysSearch', {}).get('results', {}).get('searchResults', [])
 
     listings = [extract_listing_info(i, encoded_params) for i in map_search_results]
