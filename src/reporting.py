@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+from datetime import datetime
 
 def append_to_reports_csv(args):
     """Append CLI parameters to reports.csv."""
@@ -12,7 +13,8 @@ def append_to_reports_csv(args):
         'checkout': args.checkout,
         'price_min': args.price_min,
         'price_max': args.price_max,
-        'output': args.output
+        'output': args.output,
+        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
     
     if os.path.isfile(report_file):
