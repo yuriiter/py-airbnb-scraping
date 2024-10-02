@@ -12,7 +12,7 @@ def parse_args():
     parser.add_argument('--checkout', type=str, required=True, help='Check-out date')
     parser.add_argument('--price-min', type=str, default=None, help='Minimum price')
     parser.add_argument('--price-max', type=str, default=None, help='Maximum price')
-    parser.add_argument('--output', type=str, help='Output file (CSV or JSON)')
+    parser.add_argument('--currency', type=str, help='Currency (EUR by default)', default="EUR")
 
     args = parser.parse_args()
     if args.output is None:
@@ -30,7 +30,7 @@ def get_encoded_params(args):
         "check_out": args.checkout,
         "adults": args.adults,
         "locale": "en",
-        "currency": "EUR",
+        "currency": args.currency,
     }
     if args.price_min:
         params["price_min"] = args.price_min
