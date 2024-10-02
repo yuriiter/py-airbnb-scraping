@@ -57,7 +57,7 @@ def scrape():
 
                 if idx % PAGES_PER_PROXY == 0 and USE_PROXY and ROTATE_PROXY:
                     print('Changing proxy server')
-                    current_url = page.url()
+                    current_url = page.url
                     context = create_new_context_with_state(browser, None)
                     page = context.new_page()
                     page.goto(current_url)
