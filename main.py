@@ -40,7 +40,7 @@ def scrape():
     listings = []
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         proxy = get_random_proxy()
         context = browser.new_context(viewport={'width': 450, 'height': 800}, proxy={'server': proxy} if proxy else None)
         page = context.new_page()
