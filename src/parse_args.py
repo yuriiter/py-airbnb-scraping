@@ -26,6 +26,8 @@ def get_encoded_params(args):
         "query": args.query,
         "checkin": args.checkin,
         "checkout": args.checkout,
+        "check_in": args.checkin,
+        "check_out": args.checkout,
         "adults": args.adults,
         "locale": "en",
         "currency": "EUR",
